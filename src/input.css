@@ -1,0 +1,156 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   CarDodger site tokens.
+   One accent (lane-line yellow, same family as the in-game coin). One theme per
+   visitor, following prefers-color-scheme. No pure black, no pure white.
+   Shape rule: interactive = full pill, surfaces = 1.75rem. Nothing else.
+   Z-index scale: nav 40, skip-link 60. Nothing else uses z-index.
+   --------------------------------------------------------------------------- */
+:root {
+  --bg: #eceef0;
+  --raise: #f5f6f7;
+  --ink: #14171a;
+  --mute: #4f575f;
+  --line: rgb(20 23 26 / 0.14);
+  --accent: #e8b931;
+  --on-accent: #14171a;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0e1012;
+    --raise: #171a1d;
+    --ink: #e8eaeb;
+    --mute: #9ba2a9;
+    --line: rgb(255 255 255 / 0.1);
+  }
+}
+
+@theme inline {
+  --font-display: "Outfit Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
+  --color-bg: var(--bg);
+  --color-raise: var(--raise);
+  --color-ink: var(--ink);
+  --color-mute: var(--mute);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-on-accent: var(--on-accent);
+}
+@theme {
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Self-hosted variable fonts (latin subset). font-display: swap. */
+@font-face {
+  font-family: "Outfit Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("./fonts/outfit-latin-wght-normal.woff2") format("woff2-variations");
+}
+@font-face {
+  font-family: "Geist Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("./fonts/geist-latin-wght-normal.woff2") format("woff2-variations");
+}
+
+@layer base {
+  html {
+    scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html { scroll-behavior: smooth; }
+    @view-transition { navigation: auto; }
+  }
+  body {
+    background-color: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+  ::selection { background: var(--accent); color: var(--on-accent); }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-5 text-[0.95rem] font-semibold whitespace-nowrap transition duration-300 ease-out-expo hover:-translate-y-px active:scale-[0.98];
+  }
+  .btn-accent { @apply bg-accent text-on-accent; }
+  .btn-quiet { @apply text-ink ring-1 ring-inset ring-ink/30 hover:bg-raise; }
+
+  /* Hand-drawn underline under one headline phrase. */
+  .hl { position: relative; white-space: nowrap; }
+  .hl::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0.02em;
+    height: 0.11em;
+    background: var(--accent);
+    transform-origin: left;
+  }
+
+  /* Placeholder photography is flattened to monochrome so stand-in images sit
+     inside the palette. Remove the .ph class when a real screenshot goes in. */
+  .ph { filter: grayscale(1) contrast(1.08) brightness(0.92); }
+
+  /* Magnetic pull on the primary CTA. Pointer position is written to CSS
+     variables by assets/site.js, no layout work and no framework state. */
+  [data-magnetic] {
+    transform: translate3d(var(--mx, 0px), var(--my, 0px), 0);
+    transition: transform 0.45s var(--ease), translate 0.3s var(--ease), scale 0.2s;
+  }
+
+  /* Loading lane for the store redirect pages. */
+  .lane { overflow: hidden; height: 6px; border-radius: 999px; background: var(--line); }
+  .lane > span {
+    display: block;
+    width: calc(100% + 64px);
+    height: 100%;
+    background: repeating-linear-gradient(90deg, var(--accent) 0 32px, transparent 32px 64px);
+  }
+}
+
+/* ---- Motion. Everything below is gated on no-preference. ---- */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes rise {
+    from { opacity: 0; transform: translate3d(0, 28px, 0); }
+    to   { opacity: 1; transform: none; }
+  }
+  @keyframes underline { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  @keyframes lane { from { transform: translate3d(-64px, 0, 0); } to { transform: none; } }
+  @keyframes drift {
+    from { transform: translate3d(0, -4%, 0); }
+    to   { transform: translate3d(0, 4%, 0); }
+  }
+
+  .rise { animation: rise 0.9s var(--ease) both; animation-delay: calc(var(--i, 0) * 90ms); }
+  .hl::after { transform: scaleX(0); animation: underline 0.9s 0.55s var(--ease) forwards; }
+  .lane > span { animation: lane 0.9s linear infinite; }
+
+  /* Reveal on scroll (IntersectionObserver in site.js toggles .is-in). */
+  .js [data-reveal] {
+    opacity: 0;
+    transform: translate3d(0, 28px, 0);
+    transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+    transition-delay: calc(var(--i, 0) * 80ms);
+  }
+  .js [data-reveal].is-in { opacity: 1; transform: none; }
+
+  @supports (animation-timeline: view()) {
+    .parallax {
+      animation: drift linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+  }
+}
