@@ -1,0 +1,27 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CarDodger - Huawei AppGallery</title><style>
+:root{color-scheme:light dark;--bg:#0f1115;--fg:#e8eaed;--mut:#9aa0a6;--acc:#00c8ff;--card:#1a1d24}
+@media (prefers-color-scheme:light){:root{--bg:#f6f7f9;--fg:#15181d;--mut:#5f6368;--acc:#0077b6;--card:#fff}}
+*{box-sizing:border-box}body{margin:0;font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--fg)}
+main{max-width:640px;margin:0 auto;padding:32px 20px 56px}h1{font-size:1.7rem;margin:0 0 4px}h2{font-size:1.1rem;margin:28px 0 6px;color:var(--acc)}
+.mut,small{color:var(--mut)}a{color:var(--acc)}
+.card{background:var(--card);border-radius:14px;padding:18px 20px;margin:18px 0}
+.btn{display:block;text-align:center;padding:14px;margin:10px 0;border-radius:12px;background:var(--acc);color:#fff;text-decoration:none;font-weight:600}
+</style></head><body><main>
+<h1>CarDodger</h1>
+<div class="card" id="msg"><p>Taking you to Huawei AppGallery&hellip;</p><p><small>If nothing happens, <a id="go" href="../">tap here</a>.</small></p></div>
+<noscript><p>JavaScript is off. <a href="../">Open the CarDodger page</a> and pick your store.</p></noscript>
+<script>
+// === EDIT THIS ONE LINE when the app is published ===
+// Paste the exact link from AppGallery Connect / the live AppGallery page (don't guess the format).
+var STORE_URL = "";
+// While STORE_URL is empty, the QR code (which only points at THIS page)
+// shows "coming soon" instead of a broken store link. Once you fill it in,
+// every QR already printed/shipped starts redirecting. No new QR needed.
+if (STORE_URL) {
+  document.getElementById("go").href = STORE_URL;
+  location.replace(STORE_URL);
+} else {
+  document.getElementById("msg").innerHTML = "<p><b>Coming soon to Huawei AppGallery.</b></p><p><small>The app isn&rsquo;t published yet. Please check back shortly.</small></p><p><a href=\"../\">Back</a></p>";
+}
+</script>
+</main></body></html>
