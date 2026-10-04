@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>CarDodger | Google Play</title>
-<meta name="description" content="Opening the CarDodger Companion listing on Google Play.">
+<title>CarDodger | Download APK</title>
+<meta name="description" content="Install the CarDodger Companion APK on Android. HMS Core is required.">
 <meta name="color-scheme" content="dark light">
 <meta name="theme-color" content="#0e1012" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#eceef0" media="(prefers-color-scheme: light)">
-<meta property="og:title" content="CarDodger | Google Play">
-<meta property="og:description" content="Opening the CarDodger Companion listing on Google Play.">
+<meta property="og:title" content="CarDodger | Download APK">
+<meta property="og:description" content="Install the CarDodger Companion APK on Android. HMS Core is required.">
 <link rel="icon" href="data:,">
 <link rel="preload" href="../assets/fonts/outfit-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../assets/fonts/geist-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -30,43 +30,30 @@
     </nav>
   </div>
 </header>
-<main id="main" class="mx-auto flex min-h-[calc(100dvh-4rem)] w-full max-w-[1600px] flex-col justify-end px-5 pb-16 pt-10 sm:px-8 lg:px-12 lg:pb-24">
-  <div class="lg:ml-[8%]">
-    <h1 id="status-title" class="rise max-w-[12ch] font-display text-[clamp(2.75rem,1rem+7vw,8rem)] font-bold leading-[0.92] tracking-tighter text-balance" style="--i:0">Google Play</h1>
-    <p id="status-body" class="rise mt-6 max-w-[40ch] text-lg text-mute sm:text-xl" style="--i:1">Turn on JavaScript, or open the CarDodger page and pick your store.</p>
-    <div id="lane" class="lane mt-8 hidden max-w-xl" role="progressbar" aria-label="Opening Google Play"><span></span></div>
-    <div class="rise mt-8 flex flex-wrap items-center gap-3" style="--i:2">
-      <a id="go" class="btn btn-accent" href="../">Open the CarDodger page</a>
-      <a id="apk" class="btn btn-quiet" href="../apk/">Download the APK</a>
-    </div>
+<main id="main" class="mx-auto w-full max-w-[1600px] px-5 pb-24 pt-10 sm:px-8 lg:px-12 lg:pb-36 lg:pt-16">
+  <div class="grid gap-12 lg:grid-cols-12 lg:gap-12">
+    <aside class="lg:col-span-5 lg:sticky lg:top-24 lg:self-start">
+      <a href="../#get" class="inline-flex min-h-11 items-center gap-2 text-sm text-mute transition-colors hover:text-ink"><svg class="size-4" aria-hidden="true"><use href="#i-arrow-left"/></svg>Back to CarDodger</a>
+      <h1 class="rise mt-6 max-w-[10ch] font-display text-[clamp(2.5rem,1rem+5vw,5.5rem)] font-bold leading-[0.95] tracking-tighter text-balance" style="--i:0">Download APK</h1>
+      <p class="rise mt-5 text-mute" style="--i:1">CarDodger Companion for Android</p>
+    </aside>
+    <article class="max-w-[65ch] space-y-12 lg:col-span-7 xl:col-span-6 xl:col-start-7">
+      <p class="rise rounded-[1.75rem] bg-accent/15 p-5 text-[1.05rem]" style="--i:2"><b>HMS Core is required.</b> If it is not installed on your phone, the app will not work.</p>
+      <section data-reveal>
+        <h2 class="font-display text-2xl font-semibold tracking-tight sm:text-3xl">Why it is needed</h2>
+        <p class="mt-3 text-[1.05rem] leading-relaxed text-ink/80">The app uses Huawei&rsquo;s Wear Engine to talk with your watch. Ads and in-app purchases also run on HMS Core. Without it, none of these work.</p>
+      </section>
+      <section data-reveal>
+        <h2 class="font-display text-2xl font-semibold tracking-tight sm:text-3xl">Before you install</h2>
+        <p class="mt-3 text-[1.05rem] leading-relaxed text-ink/80">Install HMS Core from <a class="underline decoration-accent decoration-2 underline-offset-4" href="https://appgallery.huawei.com/" rel="noopener">Huawei AppGallery</a> first. Then download the APK below and open it. Android may ask you to allow installs from this source.</p>
+      </section>
+      <div data-reveal>
+        <!-- Latest GitHub Release asset. Every release must attach a file named CarDodger.apk. -->
+        <a href="https://github.com/CarDodger/cardodger.github.io/releases/latest/download/CarDodger.apk" rel="noopener" class="btn btn-accent" data-magnetic><svg class="size-5" aria-hidden="true"><use href="#i-download-simple"/></svg>Download APK</a>
+      </div>
+    </article>
   </div>
 </main>
-<script>
-// === EDIT THIS ONE LINE when the app is published ===
-// Expected format: https://play.google.com/store/apps/details?id=com.cardodger.companion  (confirm on the real listing)
-var STORE_URL = "";
-// While STORE_URL is empty, the QR code (which only points at THIS page)
-// shows "coming soon" instead of a broken store link. Once you fill it in,
-// every QR already printed or shipped starts redirecting. No new QR needed.
-(function () {
-  var title = document.getElementById("status-title");
-  var body = document.getElementById("status-body");
-  var go = document.getElementById("go");
-  var lane = document.getElementById("lane");
-  if (STORE_URL) {
-    title.textContent = "Opening Google Play";
-    body.textContent = "One moment. If nothing happens, use the button.";
-    go.textContent = "Open Google Play";
-    go.href = STORE_URL;
-    lane.classList.remove("hidden");
-    location.replace(STORE_URL);
-  } else {
-    title.textContent = "Coming soon to Google Play";
-    body.textContent = "The store listing is not live yet. You can install the app now with the APK.";
-    go.textContent = "Back to CarDodger";
-  }
-})();
-</script>
 <footer class="overflow-hidden border-t border-line">
   <div class="mx-auto grid w-full max-w-[1600px] gap-8 px-5 pt-14 sm:grid-cols-[1fr_auto] sm:px-8 lg:px-12">
     <nav class="flex flex-col" aria-label="Legal and contact">
